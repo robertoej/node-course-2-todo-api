@@ -59,11 +59,11 @@ app.delete('/todos/:id', (req, res) => {
         res.status(404).send();
     } else {
         Todo.findByIdAndRemove(id).then(todo => {
-            if (todo) {
-                res.status(200).send({todo});
-            } else {
-                res.status(404).send();
+            if (!todo) {
+                return res.status(404).send();    
             }
+
+            res.send({todo});
         }).catch(e => {
             console.log('Fail to delete Todo', e);
 
