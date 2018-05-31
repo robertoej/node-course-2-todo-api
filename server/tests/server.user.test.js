@@ -161,3 +161,25 @@ describe('POST /user/login', () => {
         });
     });
 });
+
+describe('DELETE /users/me/token', () => {
+    it('should remove auth token on logout', done => {
+       request(app)
+        .delete('/users/me/token')
+        .set('x-auth', users[0].tokens[0].token.toString())
+        .expect(200)
+        .end(err => {
+            if (err) {
+                return done(e);
+            }
+
+            User
+                .findById(users[0]._id)
+                .then(user => {
+                    expect(user.tokens.length).toBe(0);
+                    done();
+                }).catch(e => done(e));
+
+        }) 
+    });
+})
