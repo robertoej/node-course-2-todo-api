@@ -7,8 +7,10 @@
     "start": "node server/server.js",
     "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha server/**/*.test.js",
     "user-test": "export NODE_ENV=test || SET NODE_ENV=test && mocha server/tests/server.user.test.js",
-    "test-watch": "nodemon --exec 'npm test'",
-    "user-test-watch": "nodemon --exec 'npm run user-test'"
+    "todo-test": "export NODE_ENV=test || SET NODE_ENV=test && mocha server/tests/server.todo.test.js",
+    "test-watch": "nodemon --inspect --exec 'npm test'",
+    "user-test-watch": "nodemon --exec 'npm run user-test'",
+    "todo-test-watch": "nodemon --exec 'npm run todo-test'"
   },
   "engines": {
     "node": "6.2.2"
