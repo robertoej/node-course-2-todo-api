@@ -120,7 +120,7 @@ describe('DELETE /todos/:id', () => {
                 }
 
                 Todo.findById(hexId).then(todo => {
-                    expect(todo).toNotExist();
+                    expect(todo).toBeFalsy();
                     done();
                 }).catch(e => {
                     done(e);
@@ -141,7 +141,7 @@ describe('DELETE /todos/:id', () => {
                 }
 
                 Todo.findById(hexId).then(todo => {
-                    expect(todo).toExist();
+                    expect(todo).toBeTruthy();
                     done();
                 }).catch(e => {
                     done(e);
@@ -182,7 +182,7 @@ describe('PATCH /todos/:id', () => {
             .expect(res => {
                 expect(res.body.todo.text).toBe(text);
                 expect(res.body.todo.completed).toBe(true);
-                expect(res.body.todo.completedAt).toBeA('number');
+                expect(typeof res.body.todo.completedAt).toBe('number');
             })
             .end((err, res) => {
                 if (err) {
@@ -192,7 +192,7 @@ describe('PATCH /todos/:id', () => {
                 Todo.findById(id).then(todo => {
                     expect(todo.text).toBe(text);
                     expect(todo.completed).toBe(true);
-                    expect(todo.completedAt).toBeA('number');
+                    expect(typeof todo.completedAt).toBe('number');
                     done();
                 })
                 .catch(err => {
@@ -222,9 +222,9 @@ describe('PATCH /todos/:id', () => {
                 }
 
                 Todo.findById(id).then(todo => {
-                    expect(todo.text).toNotEqual(text);
+                    expect(todo.text).not.toEqual(text);
                     expect(todo.completed).toEqual(false);
-                    expect(todo.completedAt).toNotExist();
+                    expect(todo.completedAt).toBeFalsy();
                     done();
                 })
                 .catch(err => {
@@ -248,7 +248,7 @@ describe('PATCH /todos/:id', () => {
             .expect(res => {
                 expect(res.body.todo.text).toBe(newTextValue);
                 expect(res.body.todo.completed).toBe(false);
-                expect(res.body.todo.completedAt).toNotExist();
+                expect(res.body.todo.completedAt).toBeFalsy();
             })
             .end((err, res) => {
                 if (err) {
@@ -258,7 +258,7 @@ describe('PATCH /todos/:id', () => {
                 Todo.findById(id).then(todo => {
                     expect(todo.text).toBe(newTextValue);
                     expect(todo.completed).toBe(false);
-                    expect(todo.completedAt).toNotExist();
+                    expect(todo.completedAt).toBeFalsy();
                     done();
                 })
                 .catch(err => {
